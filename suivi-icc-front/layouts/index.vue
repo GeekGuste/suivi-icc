@@ -26,15 +26,22 @@
                     <v-icon>mdi-dots-vertical</v-icon>
                 </v-btn>
                 </template>
-
-                <v-list>
-                <v-list-item>
-                    <v-list-item-title>Se connecter</v-list-item-title>
-                </v-list-item>
-                <v-list-item>
-                    <v-list-item-title>Se déconnecter</v-list-item-title>
-                </v-list-item>
-                </v-list>
+                <v-card>
+                <v-list-item-group>
+                    <v-list-item v-if="$auth.loggedIn">
+                        <v-list-item-title @click="$auth.logout()">
+                                Se déconnecter
+                        </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item v-else>
+                        <v-list-item-title>
+                        <NuxtLink to="/login">
+                            Se connecter
+                        </NuxtLink>
+                        </v-list-item-title>
+                    </v-list-item>
+                </v-list-item-group>
+                </v-card>
             </v-menu>
 
             
@@ -54,12 +61,12 @@
               v-model="group"
               active-class="deep-purple--text text--accent-4"
               >
-              <v-list-item>
+              <v-list-item @click="$router.push('/')">
                   <v-list-item-title>Formulaire</v-list-item-title>
               </v-list-item>
 
               <v-list-item>
-                  <v-list-item-title>Bar</v-list-item-title>
+                  <v-list-item-title>Utilisateurs</v-list-item-title>
               </v-list-item>
 
               <v-list-item>
@@ -83,7 +90,7 @@
   export default {
       data: () => ({
           drawer: false,
-      group: null,
+        group: null,
     }),
 
     watch: {
